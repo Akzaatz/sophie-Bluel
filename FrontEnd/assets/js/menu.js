@@ -1,6 +1,6 @@
 //Navigation menu
 
-export function mainMenu() {
+function mainMenu() {
   const menuLog = document.getElementById("menuLog");
 
   const menuProj = document.getElementById("menuProj");
@@ -11,3 +11,5 @@ export function mainMenu() {
     window.location.href = "../index.html";
   });
 }
+
+export { mainMenu };

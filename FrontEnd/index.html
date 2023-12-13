@@ -12,16 +12,36 @@
     />
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/style.css" />
-    <script defer src="./assets/js/app.js"></script>
+    <script type="module" defer src="./assets/js/app.js"></script>
+    <script
+      src="https://kit.fontawesome.com/eb305d8670.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
+    <div class="containerModals">
+      <div class="catalogueModal">
+        <span><i class="fa-solid fa-xmark"></i></span>
+        <h2>Galerie Photo</h2>
+        <button>Ajouter une photo</button>
+      </div>
+    </div>
+    <div class="edition-barre">
+      <div id="bar" class="barre">
+        <div><i class="fa-regular fa-pen-to-square"></i></div>
+
+        <p>mode édition</p>
+      </div>
+    </div>
     <header>
       <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+
       <nav>
         <ul>
+          <!-- <li><a href="#" class="admin"></a></li> -->
           <li id="menuProj">projets</li>
           <li id="ctc">contact</li>
-          <li id="menuLog">login</li>
+          <li id="menuLog" class="logout">login</li>
           <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
         </ul>
       </nav>
@@ -51,14 +71,16 @@
           </p>
         </article>
       </section>
+
       <section id="portfolio">
-        <h2>Mes Projets</h2>
+        <h2 id="mesprojets">Mes Projets</h2>
         <div class="navProjets">
           <button class="projets" id="0">TOUS</button>
         </div>
 
         <div class="gallery_container"></div>
       </section>
+
       <section class="contact">
         <h2>Contact</h2>
         <p>Vous avez un projet ? Discutons-en !</p>

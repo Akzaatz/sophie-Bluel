@@ -102,9 +102,6 @@ section {
     display: block;
 }
 
-body {
-    line-height: 1;
-}
 
 input[type="submit"],
 button {
@@ -166,6 +163,10 @@ table {
 
 /** end reset css**/
 body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    line-height: 1;
     max-width: 1140px;
     margin: auto;
     font-family: "Work Sans";

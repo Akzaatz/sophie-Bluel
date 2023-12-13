@@ -1,0 +1,29 @@
+.containerModals {
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(128, 128, 128, 0.347);
+
+    .catalogueModal {
+        background: white;
+        width: 50%;
+        height: 50%;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+
+        .fa-xmark {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+    }
+}

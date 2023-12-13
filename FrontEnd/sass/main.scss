@@ -1,9 +1,38 @@
+.edition-barre {
+
+    width: 1440px;
+
+    .barre {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        visibility: hidden;
+        width: 100%;
+        height: 59px;
+        background: black
+    }
+
+
+    .fa-regular,
+    p {
+        cursor: pointer;
+        padding-left: 15px;
+        font-size: 14px;
+        color: white;
+    }
+
+
+}
+
 h2 {
     font-family: "Syne";
     font-weight: 700;
     font-size: 30px;
     color: #1d6154;
+
 }
+
+
 
 #introduction {
     display: flex;
