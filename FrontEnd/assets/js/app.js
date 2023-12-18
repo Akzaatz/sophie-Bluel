@@ -1,16 +1,3 @@
-//Navigation menu
-function mainMenu() {
-  const menuLog = document.getElementById("menuLog");
-  const menuProj = document.getElementById("menuProj");
-  menuLog.addEventListener("click", () => {
-    window.location.href = "./pages/login.html";
-  });
-  menuProj.addEventListener("click", () => {
-    window.location.href = "../index.html";
-  });
-}
-mainMenu();
-
 /* ==========================
         GALLERY
 ============================*/
@@ -98,38 +85,42 @@ filterCategory();
 ========================*/
 
 const logged = window.sessionStorage.logged;
-console.log(logged);
-const admin = document.querySelector(".edition-barre .fa-regular");
-console.log(admin);
-
 const logout = document.querySelector("nav .logout");
-const editionBarre = document.getElementsByClassName(".edition-barre");
-const containerModals = document.querySelector(".containerModals");
+const edit = document.getElementById("edit");
+const editionMode = document.querySelector("#portfolio .edition-mode");
 
+const containerModals = document.querySelector(".containerModals");
 const xmark = document.querySelector(".containerModals .fa-xmark");
 
 if (logged == "true") {
-  const sectionTitle = document.getElementById("mesprojets");
-
-  // const admin = document.createElement("p");
-
-  // admin.textContent = "admin";
-  // console.log(admin);
-  // sectionTitle.appendChild(p);
-
   logout.textContent = "logout";
-  document.getElementById("bar").style.visibility = "visible";
+  const sectionTitle = document.getElementById("mesprojets");
+  const barre = document.querySelector(".barre");
+  barre.style.transform = "translateY(0px)";
   sectionTitle.style.marginBottom = "50px";
   navProjets.style.display = "none";
-  logout.addEventListener("click", () => {
-    window.sessionStorage.logged = false;
-  });
+  editionMode.style.display = "flex";
+  edit.style.visibility = "visible";
 }
+
+/*========================
+    fermeture Session
+========================*/
+
+logout.addEventListener("click", () => {
+  window.sessionStorage.logged = false;
+  logout.textContent = "login";
+  navProjets.style.display = "flex";
+  // console.log("Avant : ", editionBarre.style.display);
+  editionBarre.style.display = "none";
+  // console.log("Après : ", editionBarre.style.display);
+});
+
 /*========================
     Affichage de la modale
 ========================*/
 
-admin.addEventListener("click", () => {
+edit.addEventListener("click", () => {
   containerModals.style.display = "flex";
 });
 

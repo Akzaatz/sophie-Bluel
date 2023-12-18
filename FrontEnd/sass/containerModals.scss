@@ -6,7 +6,7 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    background: rgba(128, 128, 128, 0.347);
+    background: rgba(179, 178, 175, 0.900);
 
     .catalogueModal {
         background: white;
@@ -25,5 +25,9 @@
             right: 20px;
             cursor: pointer;
         }
+    }
+
+    button {
+        width: 237px;
     }
 }
