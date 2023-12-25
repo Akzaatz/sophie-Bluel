@@ -102,6 +102,14 @@ section {
   display: block;
 }
 
+input,
+select {
+  height: 50px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
 input[type=submit],
 button {
   font-family: "Syne";
@@ -291,12 +299,6 @@ h2 {
   display: flex;
   flex-direction: column;
 }
-.contact input {
-  height: 50px;
-  font-size: 1.2em;
-  border: none;
-  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
 .contact label {
   margin: 2em 0 1em 0;
 }
@@ -374,34 +376,189 @@ footer nav ul {
   text-align: center;
 }
 
-.containerModals {
+/*
+==============================================
+       Affichage Modale
+==============================================
+*/
+.container-modale {
   display: none;
   justify-content: center;
   align-items: center;
   position: fixed;
-  width: 100%;
-  height: 100%;
+  width: 1440px;
+  height: 100vh;
   background: rgba(179, 178, 175, 0.9);
+  /*
+  ==============================================
+          Formulaire Ajout d'image
+  ==============================================
+  */
 }
-.containerModals .catalogueModal {
+.container-modale .catalogueModal {
   background: white;
-  width: 50%;
-  height: 50%;
+  width: 40%;
+  height: 670px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   position: relative;
 }
-.containerModals .catalogueModal .fa-xmark {
+.container-modale .catalogueModal h2 {
+  font-family: "work sans";
+  font-size: 26px;
+  color: black;
+  margin: 60px 0 50px;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 30px;
+  text-align: center;
+}
+.container-modale .catalogueModal .fa-xmark {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  font-size: 1.5rem;
+  top: 24px;
+  right: 24px;
   cursor: pointer;
 }
-.containerModals button {
+.container-modale .catalogueModal .fa-arrow-left {
+  position: absolute;
+  font-size: 1.5rem;
+  top: 24px;
+  left: 24px;
+  cursor: pointer;
+}
+.container-modale .thumbnail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  margin: 0 100px;
+  gap: 30px 10px;
+}
+.container-modale .thumbnail-grid figure {
+  position: relative;
+}
+.container-modale .thumbnail-grid figure img {
+  width: 76px;
+  height: 102px;
+}
+.container-modale .thumbnail-grid figure .fa-trash-can {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  background: black;
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+}
+.container-modale .insert-image {
+  display: flex;
+  flex-direction: column;
+  width: 420px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+}
+.container-modale #label-title {
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  position: absolute;
+  width: 32px;
+  height: 16px;
+  top: 330px;
+  color: #3D3D3D;
+}
+.container-modale #label-category {
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  position: absolute;
+  width: 32px;
+  height: 16px;
+  top: 430px;
+  color: #3D3D3D;
+}
+.container-modale #addTitle {
+  margin-top: 50px;
+  width: 420px;
+}
+.container-modale #addCategory {
+  margin-top: 50px;
+  width: 420px;
+}
+.container-modale .img-chooser {
+  background: #E8F1F7;
+  width: 420px;
+  height: 169px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.container-modale .img-chooser .fa-image {
+  margin-top: 20px;
+  font-size: 4rem;
+  color: rgb(184, 197, 205);
+}
+.container-modale .img-chooser #file {
+  display: none;
+}
+.container-modale .img-chooser .add-img {
+  background: rgb(184, 197, 205);
+  height: 36px;
+  border-radius: 50px;
+  border: none;
+  margin: 10px 0;
+  color: rgb(49, 103, 133);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  cursor: pointer;
+}
+.container-modale .img-chooser p {
+  margin-bottom: 10px;
+  font-size: 0.625rem;
+}
+.container-modale .container_insert-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+}
+.container-modale .container_insert-button .buttonValidForm {
+  background-color: #1d6154;
+  padding: 9px 50px;
+  border-radius: 25px;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: Syne;
+  cursor: pointer;
+}
+.container-modale .container_insert-button #insert-button {
   width: 237px;
+  height: 36px;
+  position: relative;
+  margin-top: 100px;
+  cursor: pointer;
+  border: none;
+}
+.container-modale .container_insert-button #insert-button::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 2px;
+  background: #B3B3B3;
+  transform: translateY(-50px);
 }
 
 /*# sourceMappingURL=style.css.map */

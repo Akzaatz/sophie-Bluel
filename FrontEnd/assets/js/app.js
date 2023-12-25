@@ -38,6 +38,9 @@ async function getCategories() {
   return await resp.json();
 }
 
+/* ==========================
+      créationb buttons
+============================*/
 async function showButtons() {
   const categorys = await getCategories();
   // console.log(categorys);
@@ -89,8 +92,9 @@ const logout = document.querySelector("nav .logout");
 const edit = document.getElementById("edit");
 const editionMode = document.querySelector("#portfolio .edition-mode");
 
-const containerModals = document.querySelector(".containerModals");
-const xmark = document.querySelector(".containerModals .fa-xmark");
+// affichage de la croix de fermeture
+const containerModals = document.querySelector(".container-modale");
+const xmark = document.querySelector(".container-modale .fa-xmark");
 
 if (logged == "true") {
   logout.textContent = "logout";
@@ -124,13 +128,16 @@ edit.addEventListener("click", () => {
   containerModals.style.display = "flex";
 });
 
+/*========================
+    Fermeture de la modale
+========================*/
 xmark.addEventListener("click", () => {
   containerModals.style.display = "none";
 });
 
 containerModals.addEventListener("click", (e) => {
-  // console.log(e.target.className);
-  if (e.target.className == "containerModals") {
+  console.log(e.target.className);
+  if (e.target.className == "container-modale") {
     containerModals.style.display = "none";
   }
 });

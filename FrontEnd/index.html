@@ -12,21 +12,44 @@
     />
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/style.css" />
-    <script type="module" defer src="./assets/js/menu.js"></script>
-    <script type="module" defer src="./assets/js/app.js"></script>
+    <script defer src="./assets/js/menu.js"></script>
+    <script defer src="./assets/js/app.js"></script>
+    <script defer src="./assets/js/modale.js"></script>
     <script
       src="https://kit.fontawesome.com/eb305d8670.js"
       crossorigin="anonymous"
     ></script>
   </head>
   <body>
-    <div class="containerModals">
+    <section class="container-modale">
       <div class="catalogueModal">
+        <h2 id="modal-title">Galerie photo</h2>
         <span><i class="fa-solid fa-xmark"></i></span>
-        <h2 id="modal-title">Galerie Photo</h2>
-        <button>Ajouter une photo</button>
+
+        <div id="modal-content" class="modal-content">
+          <!-- 
+=====================================
+Affichage Vignettes
+  =====================================
+ -->
+          <div class="thumbnail-grid"></div>
+
+          <!-- 
+=====================================
+  Insertion Nouvelle Image
+  =====================================
+ -->
+
+          <div class="insert-image"></div>
+          <!-- ===========================================================
+           -->
+        </div>
+
+        <div class="container_insert-button">
+          <button type="submit" id="insert-button">Ajouter une photo</button>
+        </div>
       </div>
-    </div>
+    </section>
     <div class="barre">
       <p>
         <i class="fa-regular fa-pen-to-square"></i>&nbsp; &nbsp;mode édition

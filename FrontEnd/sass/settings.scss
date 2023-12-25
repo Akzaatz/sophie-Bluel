@@ -103,6 +103,15 @@ section {
 }
 
 
+
+input,
+select {
+    height: 50px;
+    font-size: 1.2em;
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
 input[type="submit"],
 button {
 
@@ -171,6 +180,7 @@ body {
     margin: auto;
     font-family: "Work Sans";
     font-size: 14px;
+
 }
 
 section {
