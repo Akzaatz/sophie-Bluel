@@ -4,13 +4,22 @@
 ==============================================
 */
 .container-modale {
+    // display: none;
+    // justify-content: center;
+    // align-items: center;
+    // position: fixed;
+    // width: 1440px;
+    // height: 100vh;
+    // background: rgba(179, 178, 175, 0.900);
+
     display: none;
     justify-content: center;
     align-items: center;
-    position: fixed;
+    position: absolute;
+    /* Modifiez cette ligne */
     width: 1440px;
     height: 100vh;
-    background: rgba(179, 178, 175, 0.900);
+    background: rgba(179, 178, 175, 0.9);
 
 
     .catalogueModal {
@@ -175,8 +184,12 @@
             align-items: center;
             padding: 0 20px;
             cursor: pointer;
+        }
 
-
+        #prev-img {
+            height: 169px;
+            position: absolute;
+            top: 140px;
         }
 
         p {
