@@ -39,7 +39,7 @@ async function getCategories() {
 }
 
 /* ==========================
-      créationb buttons
+      création des bouttons
 ============================*/
 async function showButtons() {
   const categorys = await getCategories();
@@ -50,9 +50,11 @@ async function showButtons() {
     btn.id = category.id;
     btn.classList = "projets";
     navProjets.appendChild(btn);
+
+    // return categorys;
   });
 }
-showButtons();
+const categorys = showButtons();
 
 // Filtrage par catégories;
 async function filterCategory() {

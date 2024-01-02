@@ -70,6 +70,7 @@ showThumbnails();
 
 const insertButton = document.getElementById("insert-button");
 const insertImage = document.querySelector(".insert-image");
+const formContainer = document.querySelector(".form-container");
 const modalTitle = document.getElementById("modal-title");
 const modalContent = document.querySelector(".modal-content");
 const catalogueModal = document.querySelector(".catalogueModal");
@@ -81,7 +82,6 @@ previewImage.style.display = "none";
 
 // Déclaration du formulaire
 const form = document.createElement("form");
-// form.id = "add-img";
 
 insertButton.addEventListener("click", () => {
   thumbnailGrid.style.display = "none";
@@ -104,7 +104,6 @@ insertButton.addEventListener("click", () => {
   // Ajout de la flèche retour
   const arrowLeft = document.createElement("i");
   arrowLeft.classList.add("fa-solid", "fa-arrow-left");
-  // console.log(arrowLeft);
 
   // Ajout de l'icône image
   const imgIcone = document.createElement("i");
@@ -135,7 +134,7 @@ insertButton.addEventListener("click", () => {
   labelTitle.id = "label-title";
   labelTitle.textContent = "Titre";
   labelTitle.htmlFor = "addTitle";
-  console.log(labelTitle);
+  // console.log(labelTitle);
 
   const inputTitle = document.createElement("input");
   inputTitle.type = "text";
@@ -154,18 +153,32 @@ insertButton.addEventListener("click", () => {
   selectCategory.name = "category";
   selectCategory.id = "addCategory";
 
+  async function populateCategoryOptions() {
+    const categories = await getCategories();
+
+    categories.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category.id.toString();
+      option.textContent = category.name;
+      selectCategory.appendChild(option);
+    });
+  }
+
+  populateCategoryOptions();
+
   // Ajout des options au champ Select
+  // boucler sur catégorys (ligne 57)
   // ======================================
   const optionObjet = document.createElement("option");
-  optionObjet.value = "objet";
+  optionObjet.value = "";
   optionObjet.textContent = "Objets";
 
   const optionAppartements = document.createElement("option");
-  optionAppartements.value = "appartements";
+  optionAppartements.value = "";
   optionAppartements.textContent = "Appartements";
 
   const optionImmeubles = document.createElement("option");
-  optionImmeubles.value = "immeubles";
+  optionImmeubles.value = "";
   optionImmeubles.textContent = "Hôtels et restaurants";
 
   selectCategory.appendChild(optionObjet);
@@ -174,6 +187,7 @@ insertButton.addEventListener("click", () => {
 
   // Positionnement des éléments
   // ===================================
+
   catalogueModal.appendChild(arrowLeft);
   insertImage.appendChild(form);
   form.appendChild(imgChooser);
@@ -181,103 +195,128 @@ insertButton.addEventListener("click", () => {
   imgChooser.appendChild(labelImage);
   imgChooser.appendChild(inputImage);
   imgChooser.appendChild(instructions);
-  modalContent.appendChild(addInfos);
-  modalContent.appendChild(labelTitle);
-  modalContent.appendChild(inputTitle);
-  modalContent.appendChild(labelTitle);
-  modalContent.appendChild(labelCategory);
-  modalContent.appendChild(inputTitle);
-  modalContent.appendChild(addInfos);
-  modalContent.appendChild(selectCategory);
+  formContainer.appendChild(labelTitle);
+  formContainer.appendChild(labelCategory);
+  formContainer.appendChild(inputTitle);
+  formContainer.appendChild(addInfos);
+  formContainer.appendChild(selectCategory);
   imgChooser.appendChild(previewImage);
 
+  // ==============================
+  // Preview de l'image sélectionnée
+  // ==============================
+
+  function prevImg() {
+    const inputFile = document.getElementById("file");
+    if (!inputFile) {
+      console.error("L'élément avec l'ID 'file' n'a pas été trouvé.");
+      return;
+    }
+
+    inputFile.addEventListener("change", () => {
+      const file = inputFile.files[0];
+      console.log(file);
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          previewImage.src = e.target.result;
+          previewImage.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      } else {
+        previewImage.style.display = "none";
+      }
+    });
+  }
+
   prevImg();
+
+  // ==============================
+  // retour au catalogue
+  // ==============================
+
+  arrowLeft.addEventListener("click", () => {
+    thumbnailGrid.style.display = "grid";
+    formContainer.style.display = "none";
+    imgChooser.style.display = "none";
+    insertButton.textContent = "Ajouter une photo";
+    insertButton.style.backgroundColor = "#1d6154";
+    previewImage.style.display = "none";
+    arrowLeft.style.display = "none";
+  });
 });
-
-// ==============================
-// retour au catalogue
-// ==============================
-
-// arrowLeft.addEventListener("click", () => {
-//   thumbnailGrid.style.display = "flex";
-//   form.style.display = "none";
-// });
 
 // ==============================
 // Ajout nouveau projet
 // ==============================
+document
+  .getElementById("insert-button")
+  .addEventListener("click", async (e) => {
+    e.preventDefault();
 
-document.getElementById("insert-button").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const formdata = new FormData(e.target);
+    // Récupération des valeurs du formulaire
+    const title = document.getElementById("addTitle").value;
+    const category = document.getElementById("addCategory").value;
+    const fileInput = document.getElementById("file");
+    const file = fileInput.files[0];
 
-  fetch("http://localhost:5678/api/works", {
-    method: "POST",
-    body: formdata,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((response) => {
+    // Construction de l'objet de données
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("image", file);
+
+    try {
+      // Envoie des données au serveur
+      // ==============================
+      const response = await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // définir le content type  (header content type formData)
+        },
+      });
+
       if (!response.ok) {
         throw new Error("Erreur lors de l'envoi du fichier");
       }
-      return response.json();
-    })
-    .then((data) => {
-      showThumbnails();
-      showWorks();
+
+      // Ajouter du nouveau projet à la galerie
+      // ==============================
+      const newProject = await response.json();
+      addProjectToGallery(newProject);
+
+      //réinitialisation du formulaire
+      // ==============================
       form.reset();
       catalogueModal.style.display = "flex";
       thumbnailGrid.style.display = "none";
       imgChooser.style.display = "none";
       previewImage.style.display = "block";
-    })
-    .catch((error) => {
+    } catch (error) {
       console.error("Erreur :", error);
-    });
-});
-
-// ==============================
-// Sélection de la catégorie
-// ==============================
-async function selectCategory() {
-  const select = document.getElementById("addCategory");
-  const categorys = await getCategories();
-  categorys.forEach((category) => {
-    const option = document.createElement("option");
-    option.value = category.id;
-    option.textContent = category.name;
-  });
-}
-
-selectCategory();
-
-// ==============================
-// Preview de l'image sélectionnée
-// ==============================
-
-function prevImg() {
-  const inputFile = document.getElementById("file");
-  if (!inputFile) {
-    console.error("L'élément avec l'ID 'file' n'a pas été trouvé.");
-    return;
-  }
-
-  inputFile.addEventListener("change", () => {
-    const file = inputFile.files[0];
-    // console.log(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        previewImage.src = e.target.result;
-        previewImage.style.display = "block";
-      };
-      reader.readAsDataURL(file);
-    } else {
-      previewImage.style.display = "none";
     }
   });
+//Affichage nopuveau projet dans la galerie
+// ==============================
+function addProjectToGallery(project) {
+  creatworks(project);
+
+  const img = document.createElement("img");
+  img.src = project.imageUrl;
+  img.style.height = "102px";
+
+  const figure = document.createElement("figure");
+  const deleteIcon = document.createElement("i");
+  deleteIcon.classList.add("fa-solid", "fa-trash-can");
+  deleteIcon.id = project.id;
+
+  thumbnailGrid.appendChild(figure);
+  figure.appendChild(img);
+  figure.appendChild(deleteIcon);
+
+  deleteIcon.addEventListener("click", () => handleDeleteMiniature(project.id));
 }
 
-// prevImg();
+addProjectToGallery();
