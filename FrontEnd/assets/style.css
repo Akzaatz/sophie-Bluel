@@ -195,6 +195,7 @@ section {
   width: 1440px;
   height: 100vh;
   background: rgba(179, 178, 175, 0.9);
+  transform: translateY(-50px);
   /*
   ==============================================
           Formulaire Ajout d'image

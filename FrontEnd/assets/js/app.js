@@ -38,7 +38,7 @@ async function getCategories() {
   return await resp.json();
 }
 
-/* ==========================
+/* =========================
       création des bouttons
 ============================*/
 async function showButtons() {
@@ -78,7 +78,7 @@ async function filterCategory() {
         showWorks();
       }
 
-      console.log(btnId);
+      // console.log(btnId);
     });
   });
 }
@@ -88,7 +88,6 @@ filterCategory();
 /*========================
     Session ouverte
 ========================*/
-
 const logged = window.sessionStorage.logged;
 const logout = document.querySelector("nav .logout");
 const edit = document.getElementById("edit");
@@ -117,9 +116,7 @@ logout.addEventListener("click", () => {
   window.sessionStorage.logged = false;
   logout.textContent = "login";
   navProjets.style.display = "flex";
-  // console.log("Avant : ", editionBarre.style.display);
   editionBarre.style.display = "none";
-  // console.log("Après : ", editionBarre.style.display);
 });
 
 /*========================
