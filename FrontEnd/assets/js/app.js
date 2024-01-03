@@ -51,7 +51,7 @@ async function showButtons() {
     btn.classList = "projets";
     navProjets.appendChild(btn);
 
-    // return categorys;
+    return categorys;
   });
 }
 const categorys = showButtons();
