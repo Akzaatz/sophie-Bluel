@@ -83,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Déclaration du formulaire
   const form = document.createElement("form");
-  const subForm = document.getElementById("sub-form"); // Ajout de la déclaration ici
 
   insertButton.addEventListener("click", () => {
     thumbnailGrid.style.display = "none";
@@ -122,8 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
     labelImage.classList.add("add-img");
     const instructions = document.createElement("p");
     instructions.textContent = ".jpg, png : 4mo max";
-
-    //
 
     // Ajout du champ Texte
     // ===================================
@@ -213,9 +210,9 @@ document.addEventListener("DOMContentLoaded", function () {
     imgChooser.appendChild(previewImage);
     insertImage.appendChild(form);
 
-    // ==============================
-    // Preview de l'image sélectionnée
-    // ==============================
+    // // ==============================
+    // // Preview de l'image sélectionnée
+    // // ==============================
 
     function prevImg() {
       const inputFile = document.getElementById("file");
@@ -254,10 +251,12 @@ document.addEventListener("DOMContentLoaded", function () {
       submitButton.style.display = "none";
       previewImage.style.display = "none";
       arrowLeft.style.display = "none";
+      modalTitle.textContent = "Galerie Photo";
       document.getElementById("msg_err").innerHTML = "";
     });
 
     formContainer.style.display = "flex";
+    prevImg();
   });
 
   // ==============================
@@ -282,9 +281,13 @@ document.addEventListener("DOMContentLoaded", function () {
       formData.append("image", file);
 
       try {
-        if (title.trim() === "") {
-          throw new Error("Le champ Titre est requis.");
+        if (title.trim() === "" || !file || category === "") {
+          document.getElementById("msg_err").innerHTML =
+            "Tous les champs requis doivent être remplis";
+
+          throw new Error("Tous les champs requis doivent être remplis");
         }
+
         // Envoie des données au serveur
         // ==============================
         const response = await fetch("http://localhost:5678/api/works", {
@@ -297,6 +300,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         if (!response.ok) {
+          document.getElementById("msg_err").innerHTML =
+            "Erreur lors de l'envoi du fichier";
           throw new Error("Erreur lors de l'envoi du fichier");
         }
 
@@ -315,9 +320,6 @@ document.addEventListener("DOMContentLoaded", function () {
         previewImage.style.display = "block";
       } catch (error) {
         console.error("Erreur :", error);
-
-        document.getElementById("msg_err").innerHTML =
-          "L'ajout d'un titre est requis";
       }
     });
 });

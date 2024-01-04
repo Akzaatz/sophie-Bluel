@@ -84,7 +84,6 @@ async function filterCategory() {
 }
 
 filterCategory();
-
 /*========================
     Session ouverte
 ========================*/
@@ -114,6 +113,8 @@ if (logged == "true") {
 
 logout.addEventListener("click", () => {
   window.sessionStorage.logged = false;
+  window.sessionStorage.token = "";
+  window.sessionStorage.userId = "";
   logout.textContent = "login";
   navProjets.style.display = "flex";
   editionBarre.style.display = "none";
