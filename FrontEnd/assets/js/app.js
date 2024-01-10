@@ -1,6 +1,25 @@
 /* ==========================
+  Barre de Navigation
+  ============================*/
+
+function mainMenu() {
+  const menuLog = document.getElementById("menuLog");
+
+  const menuProj = document.getElementById("menuProj");
+  menuLog.addEventListener("click", (e) => {
+    e.preventDefault;
+    window.location.href = "/FrontEnd/pages/login.html";
+  });
+  menuProj.addEventListener("click", () => {
+    window.location.href = "/FrontEnd/index.html";
+  });
+}
+mainMenu();
+
+/* ==========================
         GALLERY
-============================*/
+        ============================*/
+
 const gallery = document.querySelector(".gallery_container");
 const navProjets = document.querySelector(".navProjets");
 
@@ -40,10 +59,10 @@ async function getCategories() {
 
 /* =========================
       création des bouttons
-============================*/
+      ============================*/
 async function showButtons() {
   const categorys = await getCategories();
-  // console.log(categorys);
+
   categorys.forEach((category) => {
     const btn = document.createElement("button");
     btn.textContent = category.name.toUpperCase();
@@ -59,12 +78,10 @@ const categorys = showButtons();
 // Filtrage par catégories;
 async function filterCategory() {
   const catalogue = await getWorks();
-  // console.log(catalogue);
+
   const buttons = document.querySelectorAll(".navProjets button");
-  // console.log(buttons);
   buttons.forEach((button) => {
     button.addEventListener("click", (e) => {
-      // console.log(e);
       const btnId = e.target.id;
       gallery.innerHTML = "";
       if (btnId !== "0") {
@@ -77,16 +94,14 @@ async function filterCategory() {
       } else {
         showWorks();
       }
-
-      // console.log(btnId);
     });
   });
 }
 
 filterCategory();
 /*========================
-    Session ouverte
-========================*/
+      Session ouverte
+      ========================*/
 const logged = window.sessionStorage.logged;
 const logout = document.querySelector("nav .logout");
 const edit = document.getElementById("edit");
@@ -108,8 +123,8 @@ if (logged == "true") {
 }
 
 /*========================
-    fermeture Session
-========================*/
+      fermeture Session
+      ========================*/
 
 logout.addEventListener("click", () => {
   window.sessionStorage.logged = false;
@@ -121,22 +136,21 @@ logout.addEventListener("click", () => {
 });
 
 /*========================
-    Affichage de la modale
-========================*/
+      Affichage de la modale
+      ========================*/
 
 edit.addEventListener("click", () => {
   containerModals.style.display = "flex";
 });
 
 /*========================
-    Fermeture de la modale
-========================*/
+      Fermeture de la modale
+      ========================*/
 xmark.addEventListener("click", () => {
   containerModals.style.display = "none";
 });
 
 containerModals.addEventListener("click", (e) => {
-  console.log(e.target.className);
   if (e.target.className == "container-modale") {
     containerModals.style.display = "none";
   }

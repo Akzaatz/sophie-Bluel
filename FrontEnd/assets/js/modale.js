@@ -2,32 +2,29 @@ document.addEventListener("DOMContentLoaded", function () {
   let inputTitle;
   const thumbnailGrid = document.querySelector(".thumbnail-grid");
   const token = window.sessionStorage.getItem("token");
-  // console.log(token);
-  // console.log(thumbnailGrid);
+
   // ==============================
   // Affichage des miniatures
   // ==============================
 
+  // Récupération de la liste des miniatures depuis le serveur
   async function showThumbnails() {
     try {
       const response = await fetch("http://localhost:5678/api/works");
       const miniatures = await response.json();
-      // console.log(miniatures);
-
       miniatures.forEach((miniature) => {
         const img = document.createElement("img");
         img.src = miniature.imageUrl;
         img.style.height = "102px";
 
         const figure = document.createElement("figure");
-        // console.log(figure);
 
         // ==============================
         //Ajout corbeille
         // ==============================
+
         const deleteIcon = document.createElement("i");
         deleteIcon.classList.add("fa-solid", "fa-trash-can");
-        // console.log(deleteIcon);
 
         deleteIcon.id = miniature.id;
 
@@ -36,10 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
         figure.appendChild(img);
         figure.appendChild(deleteIcon);
 
-        // console.log(miniature.id);
-
-        // ==============================
-        // Suppression projets
         // ==============================
         deleteIcon.addEventListener("click", () =>
           handleDeleteMiniature(miniature.id)
@@ -67,7 +60,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
   showThumbnails();
-  // ==============================m
+
+  // Appel des élements HTML
+  // ==============================
   const insertButton = document.getElementById("insert-button");
   const submitButton = document.getElementById("submit-button");
   const insertImage = document.querySelector(".insert-image");
@@ -86,12 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   insertButton.addEventListener("click", () => {
     thumbnailGrid.style.display = "none";
-    if (modalTitle.textContent == "Ajout photo") {
-      const tmp = document.getElementById("file").files[0];
-      console.log(tmp);
-      const tmp2 = document.getElementById("addTitle");
-      console.log(tmp2);
-    }
 
     // Modification du titre de la modale
     modalTitle.textContent = "Ajout photo";
@@ -127,13 +116,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const addInfos = document.createElement("div");
     addInfos.classList.add("add-infos");
-    // console.log(addInfos);
 
     const labelTitle = document.createElement("label");
     labelTitle.id = "label-title";
     labelTitle.textContent = "Titre";
     labelTitle.htmlFor = "addTitle";
-    // console.log(labelTitle);
 
     const inputTitle = document.createElement("input");
 
@@ -172,17 +159,18 @@ document.addEventListener("DOMContentLoaded", function () {
     labelCategory.textContent = "Catégories";
     labelCategory.htmlFor = "addCategory";
 
-    async function populateCategoryOptions() {
+    // Récupération des catégories :
+    async function categoryOptions() {
       const categories = await getCategories();
 
-      // Ajouter les options statiques
+      // Ajout des options statiques
       selectCategory.appendChild(optionObjet.cloneNode(true));
       selectCategory.appendChild(optionAppartements.cloneNode(true));
       selectCategory.appendChild(optionImmeubles.cloneNode(true));
 
-      // Supprimer les options existantes
+      // Suppression des options existantes
       selectCategory.innerHTML = "";
-      // Ajouter les options dynamiques
+      // Ajout des options dynamiques
       categories.forEach((category) => {
         const option = document.createElement("option");
         option.value = category.id.toString();
@@ -191,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    populateCategoryOptions();
+    categoryOptions();
 
     // Positionnement des éléments
     // ===================================
@@ -222,8 +210,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       inputFile.addEventListener("change", () => {
+        // Récupération du 1er fichier de la liste
         const file = inputFile.files[0];
-        console.log(file);
+
         if (file) {
           const reader = new FileReader();
           reader.onload = function (e) {
@@ -263,63 +252,61 @@ document.addEventListener("DOMContentLoaded", function () {
   // Ajout nouveau projet
   // ==============================
 
-  document
-    .getElementById("submit-button")
-    .addEventListener("click", async (e) => {
-      e.preventDefault();
+  submitButton.addEventListener("click", async (e) => {
+    e.preventDefault();
 
-      // Récupération des valeurs du formulaire
-      const title = document.getElementById("addTitle").value;
-      const category = document.getElementById("addCategory").value;
-      const fileInput = document.getElementById("file");
-      const file = fileInput.files[0];
+    // Récupération des valeurs du formulaire
+    const title = document.getElementById("addTitle").value;
+    const category = document.getElementById("addCategory").value;
+    const fileInput = document.getElementById("file");
+    const file = fileInput.files[0];
 
-      // Construction de l'objet de données
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("category", category);
-      formData.append("image", file);
+    // Construction de l'objet de données
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("image", file);
 
-      try {
-        if (title.trim() === "" || !file || category === "") {
-          document.getElementById("msg_err").innerHTML =
-            "Tous les champs requis doivent être remplis";
+    try {
+      if (title.trim() === "" || !file || category === "") {
+        document.getElementById("msg_err").innerHTML =
+          "Tous les champs requis doivent être remplis";
 
-          throw new Error("Tous les champs requis doivent être remplis");
-        }
-
-        // Envoie des données au serveur
-        // ==============================
-        const response = await fetch("http://localhost:5678/api/works", {
-          method: "POST",
-          body: formData,
-          headers: {
-            Authorization: `Bearer ${token}`,
-            // définir le content type  (header content type formData)
-          },
-        });
-
-        if (!response.ok) {
-          document.getElementById("msg_err").innerHTML =
-            "Erreur lors de l'envoi du fichier";
-          throw new Error("Erreur lors de l'envoi du fichier");
-        }
-
-        // Ajouter du nouveau projet à la galerie
-        // ==============================
-        const newProject = await response.json();
-        addProjectToGallery(newProject);
-
-        //réinitialisation du formulaire
-        // ==============================
-        form.reset();
-
-        catalogueModal.style.display = "flex";
-        thumbnailGrid.style.display = "none";
-        imgChooser.style.display = "none";
-        previewImage.style.display = "block";
-      } catch (error) {
-        console.error("Erreur :", error);
+        throw new Error("Tous les champs requis doivent être remplis");
       }
-    });
+      // Envoie des données au serveur
+      // ==============================
+
+      const response = await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // définir le content type  (header content type formData)
+        },
+      });
+
+      if (!response.ok) {
+        document.getElementById("msg_err").innerHTML =
+          "Erreur lors de l'envoi du fichier";
+        throw new Error("Erreur lors de l'envoi du fichier");
+      }
+
+      // Ajout du nouveau projet à la galerie
+      // ==============================
+      const newProject = await response.json();
+      addProjectToGallery(newProject);
+
+      //réinitialisation du formulaire
+      // ==============================
+      form.reset();
+
+      catalogueModal.style.display = "flex";
+      thumbnailGrid.style.display = "none";
+      imgChooser.style.display = "none";
+      previewImage.style.display = "block";
+    } catch (error) {
+      console.error("Erreur :", error);
+    }
+  });
 });
