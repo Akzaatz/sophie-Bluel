@@ -138,20 +138,19 @@ logout.addEventListener("click", () => {
 /*========================
       Affichage de la modale
       ========================*/
-
-edit.addEventListener("click", () => {
-  containerModals.style.display = "flex";
-});
-
-/*========================
-      Fermeture de la modale
-      ========================*/
-xmark.addEventListener("click", () => {
-  containerModals.style.display = "none";
-});
-
-containerModals.addEventListener("click", (e) => {
-  if (e.target.className == "container-modale") {
+if (logged == "true") {
+  edit.addEventListener("click", () => {
+    containerModals.style.display = "flex";
+  });
+  /*========================
+        Fermeture de la modale
+        ========================*/
+  xmark.addEventListener("click", () => {
     containerModals.style.display = "none";
-  }
-});
+  });
+  containerModals.addEventListener("click", (e) => {
+    if (e.target.className == "container-modale") {
+      containerModals.style.display = "none";
+    }
+  });
+}

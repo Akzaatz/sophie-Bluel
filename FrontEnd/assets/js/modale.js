@@ -260,7 +260,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const category = document.getElementById("addCategory").value;
     const fileInput = document.getElementById("file");
     const file = fileInput.files[0];
-
     // Construction de l'objet de données
     const formData = new FormData();
     formData.append("title", title);
