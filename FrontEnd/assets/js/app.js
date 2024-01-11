@@ -18,7 +18,7 @@ mainMenu();
 
 /* ==========================
         GALLERY
-        ============================*/
+============================*/
 
 const gallery = document.querySelector(".gallery_container");
 const navProjets = document.querySelector(".navProjets");

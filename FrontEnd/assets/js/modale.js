@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const response = await fetch("http://localhost:5678/api/works");
       const miniatures = await response.json();
+
       miniatures.forEach((miniature) => {
         const img = document.createElement("img");
         img.src = miniature.imageUrl;
@@ -121,7 +122,6 @@ document.addEventListener("DOMContentLoaded", function () {
     labelTitle.id = "label-title";
     labelTitle.textContent = "Titre";
     labelTitle.htmlFor = "addTitle";
-
     const inputTitle = document.createElement("input");
 
     inputTitle.type = "text";
@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
       inputFile.addEventListener("change", () => {
         // Récupération du 1er fichier de la liste
         const file = inputFile.files[0];
-
+        console.log(file);
         if (file) {
           const reader = new FileReader();
           reader.onload = function (e) {
@@ -251,7 +251,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ==============================
   // Ajout nouveau projet
   // ==============================
-
   submitButton.addEventListener("click", async (e) => {
     e.preventDefault();
 
@@ -281,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function () {
         body: formData,
         headers: {
           Authorization: `Bearer ${token}`,
-          // définir le content type  (header content type formData)
+          // "Content-Type": "application/json",
         },
       });
 
@@ -290,20 +289,6 @@ document.addEventListener("DOMContentLoaded", function () {
           "Erreur lors de l'envoi du fichier";
         throw new Error("Erreur lors de l'envoi du fichier");
       }
-
-      // Ajout du nouveau projet à la galerie
-      // ==============================
-      const newProject = await response.json();
-      addProjectToGallery(newProject);
-
-      //réinitialisation du formulaire
-      // ==============================
-      form.reset();
-
-      catalogueModal.style.display = "flex";
-      thumbnailGrid.style.display = "none";
-      imgChooser.style.display = "none";
-      previewImage.style.display = "block";
     } catch (error) {
       console.error("Erreur :", error);
     }
