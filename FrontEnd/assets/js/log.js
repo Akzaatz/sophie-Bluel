@@ -8,10 +8,10 @@ function mainMenu() {
   const menuProj = document.getElementById("menuProj");
   menuLog.addEventListener("click", (e) => {
     e.preventDefault;
-    window.location.href = "../pages/login.html";
+    window.location.href = "../../pages/login.html";
   });
   menuProj.addEventListener("click", () => {
-    window.location.href = "../index.html";
+    window.location.href = "../../index.html";
   });
 }
 mainMenu();
