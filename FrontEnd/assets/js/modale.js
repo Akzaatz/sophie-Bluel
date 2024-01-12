@@ -228,6 +228,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
     prevImg();
 
+    inputImage.addEventListener("input", (e) => {
+      console.log("succès");
+
+      if (inputTitle.value !== "" && inputImage !== "") {
+        submitButton.style.backgroundColor = "#1d6154";
+        console.log("bouton vert");
+      } else {
+        submitButton.style.backgroundColor = "grey";
+        console.log("bouton gris");
+      }
+    });
+
+    // inputTitle.addEventListener("input", (e) => {
+    //   console.log("succès");
+    //   if (inputTitle.value == "") {
+    //     submitButton.style.backgroundColor = "grey";
+    //   }
+    //   if (inputTitle.value !== "" && inputImage !== "") {
+    //     submitButton.style.backgroundColor = "#1d6154";
+    //     console.log("bouton vert");
+    //   } else {
+    //     submitButton.style.backgroundColor = "grey";
+    //     console.log("bouton gris");
+    //   }
+    // });
+
     // ==============================
     // retour au catalogue
     // ==============================
@@ -241,6 +267,7 @@ document.addEventListener("DOMContentLoaded", function () {
       previewImage.style.display = "none";
       arrowLeft.style.display = "none";
       modalTitle.textContent = "Galerie Photo";
+      submitButton.style.backgroundColor = "grey";
       document.getElementById("msg_err").innerHTML = "";
     });
 
@@ -280,7 +307,6 @@ document.addEventListener("DOMContentLoaded", function () {
         body: formData,
         headers: {
           Authorization: `Bearer ${token}`,
-          // "Content-Type": "application/json",
         },
       });
 
