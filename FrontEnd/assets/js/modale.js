@@ -240,20 +240,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // inputTitle.addEventListener("input", (e) => {
-    //   console.log("succès");
-    //   if (inputTitle.value == "") {
-    //     submitButton.style.backgroundColor = "grey";
-    //   }
-    //   if (inputTitle.value !== "" && inputImage !== "") {
-    //     submitButton.style.backgroundColor = "#1d6154";
-    //     console.log("bouton vert");
-    //   } else {
-    //     submitButton.style.backgroundColor = "grey";
-    //     console.log("bouton gris");
-    //   }
-    // });
-
     // ==============================
     // retour au catalogue
     // ==============================
