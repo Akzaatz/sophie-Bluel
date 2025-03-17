@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.sessionStorage.setItem("logged", true);
       window.sessionStorage.setItem("token", data.token);
       window.sessionStorage.setItem("userId", data.userId);
-      window.location.href = "../index.html";
+      window.location.href = "sophie-bluel.akzaatz.com.";
     } catch (error) {
       console.error("Erreur de connexion:", error);
     }
