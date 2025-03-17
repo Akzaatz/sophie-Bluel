@@ -4,14 +4,16 @@
 
 function mainMenu() {
   const menuLog = document.getElementById("menuLog");
-
   const menuProj = document.getElementById("menuProj");
+
   menuLog.addEventListener("click", (e) => {
-    e.preventDefault;
-    window.location.href = "pages/login.html";
+    e.preventDefault();
+    window.location.href = "/pages/login.html";
   });
-  menuProj.addEventListener("click", () => {
-    window.location.href = "https://sophie-bluel.akzaatz.com/";
+
+  menuProj.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = "/";
   });
 }
 mainMenu();
