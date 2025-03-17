@@ -10,7 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Récupération de la liste des miniatures depuis le serveur
   async function showThumbnails() {
     try {
-      const response = await fetch("http://localhost:5678/api/works");
+      const response = await fetch(
+        "https://sophie-bluel.akzaatz.com/api/works"
+      );
       const miniatures = await response.json();
 
       miniatures.forEach((miniature) => {
@@ -39,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
           handleDeleteMiniature(miniature.id)
         );
         function handleDeleteMiniature(miniatureId) {
-          fetch(`http://localhost:5678/api/works/${miniature.id}`, {
+          fetch(`https://sophie-bluel.akzaatz.com/api/works/${miniature.id}`, {
             method: "DELETE",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -288,13 +290,16 @@ document.addEventListener("DOMContentLoaded", function () {
       // Envoie des données au serveur
       // ==============================
 
-      const response = await fetch("http://localhost:5678/api/works", {
-        method: "POST",
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "https://sophie-bluel.akzaatz.com/api/works",
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         document.getElementById("msg_err").innerHTML =

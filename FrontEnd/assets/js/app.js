@@ -11,7 +11,7 @@ function mainMenu() {
     window.location.href = "pages/login.html";
   });
   menuProj.addEventListener("click", () => {
-    window.location.href = "index.html";
+    window.location.href = "FrontEnd.index.html";
   });
 }
 mainMenu();
@@ -25,7 +25,7 @@ const navProjets = document.querySelector(".navProjets");
 
 //Tableau des Projets
 async function getWorks() {
-  const resp = await fetch("http://localhost:5678/api/works");
+  const resp = await fetch("https://sophie-bluel.akzaatz.com/api/works");
   return await resp.json();
 }
 getWorks();
@@ -53,7 +53,9 @@ function creatworks(work) {
 
 // Appel des catégories
 async function getCategories() {
-  const resp = await fetch("http://localhost:5678/api/categories");
+  const respCategories = await fetch(
+    "https://sophie-bluel.akzaatz.com/api/categories"
+  );
   return await resp.json();
 }
 

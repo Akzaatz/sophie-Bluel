@@ -11,10 +11,11 @@ function mainMenu() {
     window.location.href = "/FrontEnd/pages/login.html";
   });
   menuProj.addEventListener("click", () => {
-    window.location.href = "/FrontEnd/index.html";
+    window.location.href = "index.html";
   });
 }
 mainMenu();
+z;
 
 /* ===================
      Séquence login
@@ -30,17 +31,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const userPassword = password.value;
 
     try {
-      const response = await fetch("http://localhost:5678/api/users/login", {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: userEmail,
-          password: userPassword,
-        }),
-      });
+      const response = await fetch(
+        "https://sophie-bluel.akzaatz.com/api/users/login",
+        {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: userEmail,
+            password: userPassword,
+          }),
+        }
+      );
 
       if (!response.ok) {
         email.style.border = "2px solid #FF0000";
