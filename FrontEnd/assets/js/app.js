@@ -11,7 +11,7 @@ function mainMenu() {
     window.location.href = "pages/login.html";
   });
   menuProj.addEventListener("click", () => {
-    window.location.href = "FrontEnd.index.html";
+    window.location.href = "https://sophie-bluel.akzaatz.com/";
   });
 }
 mainMenu();
